@@ -10,3 +10,12 @@ sql
 SELECT product_id
 FROM Products
 WHERE low_fats = 'Y' AND recyclable = 'Y';
+
+0584. Find Customer Referee  
+Problem Link : [LeetCode 584](https://leetcode.com/problems/find-customer-referee/)  
+Description : Return the names of customers whose `referee_id` is **not 2** or is **NULL**.  
+Solution :
+sql
+SELECT name
+FROM Customer
+WHERE referee_id IS NULL OR referee_id != 2;
