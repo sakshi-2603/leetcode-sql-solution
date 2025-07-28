@@ -46,3 +46,13 @@ LEFT JOIN Transactions t
 WHERE t.transaction_id IS NULL
 GROUP BY v.customer_id;
 
+1068. Product Sales Analysis I  
+Problem Link: [LeetCode 1068](https://leetcode.com/problems/product-sales-analysis-i/)
+Description:  
+Report the `product_name`, `year`, and `price` from the sales table by joining with product information.
+SQL Solution:
+sql
+SELECT p.product_name, s.year, s.price
+FROM Sales s
+JOIN Product p
+  ON s.product_id = p.product_id;
