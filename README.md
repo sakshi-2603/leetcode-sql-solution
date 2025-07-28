@@ -77,3 +77,14 @@ sql
 SELECT tweet_id
 FROM Tweets
 WHERE LENGTH(content) > 15;
+
+1148. Article Views I  
+Problem Link: [LeetCode 1148](https://leetcode.com/problems/article-views-i/)
+Description:  
+  Return authors who have viewed at least one of their own articles.
+SQL Solution:
+sql
+SELECT DISTINCT author_id AS id
+FROM Views
+WHERE author_id = viewer_id
+ORDER BY id;
