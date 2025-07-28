@@ -19,3 +19,16 @@ sql
 SELECT name
 FROM Customer
 WHERE referee_id IS NULL OR referee_id != 2;
+
+Solved Problems
+
+Easy
+
+595. Big Countries  
+Problem Link: [LeetCode 595](https://leetcode.com/problems/big-countries/)
+Description: Find countries that are considered big based on area (≥ 3,000,000) or population (≥ 25,000,000).  
+Solution:
+sql
+SELECT name, population, area
+FROM World
+WHERE area >= 3000000 OR population >= 25000000;
