@@ -56,3 +56,15 @@ SELECT p.product_name, s.year, s.price
 FROM Sales s
 JOIN Product p
   ON s.product_id = p.product_id;
+
+1378. Replace Employee ID with The Unique Identifier  
+Problem Link: [LeetCode 1378](https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/)
+Description:  
+  Report each employee's `unique_id` and `name`. If no `unique_id` exists, return `null`.
+SQL Solution:
+sql
+SELECT euni.unique_id, e.name
+FROM Employees e
+LEFT JOIN EmployeeUNI euni
+  ON e.id = euni.id;
+
