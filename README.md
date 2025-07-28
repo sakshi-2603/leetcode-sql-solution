@@ -32,3 +32,17 @@ sql
 SELECT name, population, area
 FROM World
 WHERE area >= 3000000 OR population >= 25000000;
+
+1581. Customer Who Visited but Did Not Make Any Transactions  
+Problem Link: [LeetCode 1581](https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/)
+Description:  
+Find the number of times each customer visited the mall **without making any transactions**.
+SQL Solution:
+sql
+SELECT v.customer_id, COUNT(*) AS count_no_trans
+FROM Visits v
+LEFT JOIN Transactions t
+  ON v.visit_id = t.visit_id
+WHERE t.transaction_id IS NULL
+GROUP BY v.customer_id;
+
