@@ -68,3 +68,12 @@ FROM Employees e
 LEFT JOIN EmployeeUNI euni
   ON e.id = euni.id;
 
+1683. Invalid Tweets  
+Problem Link: [LeetCode 1683](https://leetcode.com/problems/invalid-tweets/)
+Description:  
+  Find `tweet_id` of tweets with content length strictly greater than 15 characters.
+SQL Solution:
+sql
+SELECT tweet_id
+FROM Tweets
+WHERE LENGTH(content) > 15;
