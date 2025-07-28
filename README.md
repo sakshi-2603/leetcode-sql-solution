@@ -88,3 +88,39 @@ SELECT DISTINCT author_id AS id
 FROM Views
 WHERE author_id = viewer_id
 ORDER BY id;
+
+SQL: Find Warmer Days Compared to Previous Day
+This repository contains a SQL solution to find days where the temperature was higher than the previous day. This is a classic SQL question involving **self joins**.
+Problem Statement
+Given a `Weather` table, return the IDs of the days when the temperature was higher than the previous day.
+Table: Weather
+| Column Name | Type    |
+|-------------|---------|
+| id          | int     |
+| recordDate  | date    |
+| temperature | int     |
+`id` is the primary key.
+Each row contains the temperature of a specific date.
+Example
+Input:
+| id | recordDate | temperature |
+|----|------------|-------------|
+| 1  | 2015-01-01 | 10          |
+| 2  | 2015-01-02 | 25          |
+| 3  | 2015-01-03 | 20          |
+| 4  | 2015-01-04 | 30          |
+Output:
+| id |
+|----|
+| 2  |
+| 4  |
+Explanation:
+On 2015-01-02, temperature rose from 10 → 25 (so include `id = 2`)
+On 2015-01-04, temperature rose from 20 → 30 (so include `id = 4`)
+SQL Solution (Using Self Join)
+sql
+SELECT W1.id
+FROM Weather W1
+JOIN Weather W2
+  ON DATEDIFF(W1.recordDate, W2.recordDate) =
+
