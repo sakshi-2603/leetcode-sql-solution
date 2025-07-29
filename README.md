@@ -124,3 +124,34 @@ FROM Weather W1
 JOIN Weather W2
   ON DATEDIFF(W1.recordDate, W2.recordDate) =
 
+SQL: Average Processing Time Per Machine
+
+This repository contains a SQL solution to calculate the average processing time per machine based on process start and end timestamps.
+Problem Statement
+You are given an `Activity` table that logs when processes on machines start and end. Your task is to compute the average processing time for each machine.
+Table: Activity
+| Column Name    | Type   |
+|----------------|--------|
+| machine_id     | int    |
+| process_id     | int    |
+| activity_type  | enum   |
+| timestamp      | float  |
+
+- `(machine_id, process_id, activity_type)` forms the primary key.
+- `activity_type` is either `'start'` or `'end'`.
+- `timestamp` is the time at which the activity occurred.
+SQL Solution
+```sql
+SELECT
+    machine_id,
+    ROUND(AVG(end_time - start_time), 3) AS processing_time
+FROM (
+    SELECT
+        machine_id,
+        process_id,
+        MAX(CASE WHEN activity_type = 'start' THEN timestamp END) AS start_time,
+        MAX(CASE WHEN activity_type = 'end' THEN timestamp END) AS end_time
+    FROM Activity
+    GROUP BY machine_id, process_id
+) AS process_times
+GROUP BY machine_id;
