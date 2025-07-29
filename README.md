@@ -155,3 +155,68 @@ FROM (
     GROUP BY machine_id, process_id
 ) AS process_times
 GROUP BY machine_id;
+
+SQL: Employees with Bonus Less Than 1000
+
+This SQL solution returns the names and bonus amounts of employees who either:
+- Have a bonus less than 1000, or
+- Do not have any bonus at all (`NULL`).
+
+Tables
+
+Employee Table
+
+| Column Name | Type    |
+|-------------|---------|
+| empId       | int     |
+| name        | varchar |
+| supervisor  | int     |
+| salary      | int     |
+
+Bonus Table
+
+| Column Name | Type |
+|-------------|------|
+| empId       | int  |
+| bonus       | int  |
+
+Example
+
+Input:
+
+Employee
+| empId | name   | supervisor | salary |
+|-------|--------|------------|--------|
+| 3     | Brad   | null       | 4000   |
+| 1     | John   | 3          | 1000   |
+| 2     | Dan    | 3          | 2000   |
+| 4     | Thomas | 3          | 4000   |
+
+Bonus
+| empId | bonus |
+|-------|-------|
+| 2     | 500   |
+| 4     | 2000  |
+
+Expected Output:
+
+| name  | bonus |
+|-------|-------|
+| Brad  | NULL  |
+| John  | NULL  |
+| Dan   | 500   |
+
+Query Logic
+
+- We use a `LEFT JOIN` to include all employees, even if they don’t have an entry in the Bonus table.
+- The `WHERE` clause filters:
+  - Employees with a bonus less than 1000.
+  - Or employees whose bonus is `NULL`.
+
+✅ SQL Query
+
+```sql
+SELECT e.name, b.bonus
+FROM Employee e
+LEFT JOIN Bonus b ON e.empId = b.empId
+WHERE b.bonus < 1000 OR b.bonus IS NULL;
