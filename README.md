@@ -287,7 +287,23 @@ Table Description
 - `department` (VARCHAR): Department the employee belongs to
 - `managerId` (INT): The `id` of the employee's manager
 Problem Statement
-Write an SQL query to find **names of employees who are managers with at least 5 direct reports**. Return the result in **any order**.
+Write an SQL query to find names of employees who are managers with at least 5 direct reports. Return the result in any order.
 SQL Logic
-`Join the `
+
+
+
+1934. Confirmation Rate ✅📩
+This repository contains the SQL solution for calculating the confirmation rate for each user based on their signup and message confirmation history.
+Table Descriptions
+`Signups`
+- `user_id` (INT) — Primary key, unique for each user
+- `time_stamp` (DATETIME) — Signup time
+`Confirmations`
+- `user_id` (INT) — Foreign key to `Signups.user_id`
+- `time_stamp` (DATETIME)
+- `action` (ENUM: 'confirmed', 'timeout') — The result of the confirmation attempt
+---
+
+
+
 
