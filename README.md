@@ -278,4 +278,16 @@ Sample Output Format
 | ...        | ...           | ...          | ...            |
 
  
+570. Managers with at Least 5 Direct Reports 
+This repository contains the SQL solution to find all managers who have at least five direct reports.
+Table Description
+`Employee`
+- `id` (INT): Primary key
+- `name` (VARCHAR): Name of the employee
+- `department` (VARCHAR): Department the employee belongs to
+- `managerId` (INT): The `id` of the employee's manager
+Problem Statement
+Write an SQL query to find **names of employees who are managers with at least 5 direct reports**. Return the result in **any order**.
+SQL Logic
+`Join the `
 
