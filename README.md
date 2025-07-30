@@ -249,5 +249,33 @@ Sample Output Format
 | 1          | Alice         | Programming  | 1              |
 | ...        | ...           | ...          | ...            |
 
+Student Exam Attendance Count 📚📝
+This repository contains the SQL solution to determine how many times each student attended each subject's exam based on three related tables: Students, Subjects, and Examinations.
+Tables Description
+`Students`
+- `student_id` (INT) – Primary Key
+- `student_name` (VARCHAR)
+`Subjects`
+- `subject_name` (VARCHAR) – Primary Key
+`Examinations`
+- `student_id` (INT)
+- `subject_name` (VARCHAR)
+- May contain duplicates. Represents attendance per exam.
+Problem Statement
+Return a table with the number of times each student attended each exam, even if the count is `0`. The result should be sorted by `student_id` and `subject_name`.
+SQL Approach
+- Use `CROSS JOIN` to generate all student-subject combinations.
+- Use `LEFT JOIN` on the `Examinations` table to count how many times each pair appears.
+- Use `GROUP BY` to aggregate the count.
+- Use `ORDER BY` to sort results as required.
+Sample Output Format
+
+| student_id | student_name | subject_name | attended_exams |
+|------------|---------------|--------------|----------------|
+| 1          | Alice         | Math         | 3              |
+| 1          | Alice         | Physics      | 2              |
+| 1          | Alice         | Programming  | 1              |
+| ...        | ...           | ...          | ...            |
+
  
 
