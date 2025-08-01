@@ -404,3 +404,18 @@ Output:
 | 1 | 2.00 |
 | 2 | 2.50 |
 +-------------+---------------+
+
+Contest Registration Percentage
+
+[LeetCode Problem](https://leetcode.com/problems/percentage-of-users-attended-a-contest/)  
+Calculate the **percentage of users registered in each contest**, rounded to 2 decimal places.
+Schema:
+Users Table
++---------+-----------+
+| user_id | user_name |
++---------+-----------+
+| 6 | Alice |
+| 2 | Bob |
+| 7 | Alex |
+
+
