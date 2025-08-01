@@ -371,3 +371,36 @@ Output:
 | 2 | 16.96 |
 +------------+---------------+
 
+Average Employee Experience per Project
+
+[LeetCode Problem](https://leetcode.com/problems/project-employees-i/)  
+For each project, calculate the **average experience (in years)** of all employees working on it, rounded to **2 decimal places**.
+📊 Schema:
+Project Table :
++-------------+-------------+
+| project_id | employee_id |
++-------------+-------------+
+| 1 | 1 |
+| 1 | 2 |
+| 1 | 3 |
+| 2 | 1 |
+| 2 | 4 |
++-------------+-------------+
+
+Employee :
++-------------+--------+------------------+
+| employee_id | name | experience_years |
++-------------+--------+------------------+
+| 1 | Khaled | 3 |
+| 2 | Ali | 2 |
+| 3 | John | 1 |
+| 4 | Doe | 2 |
++-------------+--------+------------------+
+
+Output:
++-------------+---------------+
+| project_id | average_years |
++-------------+---------------+
+| 1 | 2.00 |
+| 2 | 2.50 |
++-------------+---------------+
