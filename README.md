@@ -419,3 +419,62 @@ Users Table
 | 7 | Alex |
 
 
+Query Quality and Poor Query Percentage
+
+This query analyzes the performance of database queries by calculating two key metrics:
+
+- Quality: Average of the ratio `(rating / position)` for each `query_name`.
+- Poor Query Percentage**: The percentage of queries with `rating < 3` out of total queries for each `query_name`.
+Table: Queries
+
+| Column Name | Type    | Description                             |
+|-------------|---------|-----------------------------------------|
+| query_name  | varchar | Name of the query group                 |
+| result      | varchar | Result or outcome of the query         |
+| position    | int     | Rank of the result (1 to 500)          |
+| rating      | int     | Rating of the result (1 to 5)          |
+
+A query is considered **poor** if its rating is less than 3.
+### 🧮 Formula Definitions:
+
+- Quality = `AVG(rating / position)`
+- Poor Query Percentage = `(COUNT(rating < 3) / COUNT(*)) * 100`
+
+Both values are rounded to 2 decimal places.
+📊 Example Input:
+
+Queries Table:
+
+| query_name | result           | position | rating |
+|------------|------------------|----------|--------|
+| Dog        | Golden Retriever | 1        | 5      |
+| Dog        | German Shepherd  | 2        | 5      |
+| Dog        | Mule             | 200      | 1      |
+| Cat        | Shirazi          | 5        | 2      |
+| Cat        | Siamese          | 3        | 3      |
+| Cat        | Sphynx           | 7        | 4      |
+
+✅ Output:
+
+| query_name | quality | poor_query_percentage |
+|------------|---------|------------------------|
+| Dog        | 2.50    | 33.33                  |
+| Cat        | 0.66    | 33.33                  |
+
+💡 Explanation:
+
+- Dog
+  - Quality: `(5/1 + 5/2 + 1/200) / 3 = 2.50`
+  - Poor queries: 1 (rating 1) out of 3 → `33.33%`
+
+- Cat
+  - Quality: `(2/5 + 3/3 + 4/7) / 3 = 0.66`
+  - Poor queries: 1 (rating 2) out of 3 → `33.33%`
+📌 SQL Query Used:
+```sql
+SELECT 
+    query_name,
+    ROUND(AVG(rating * 1.0 / position), 2) AS quality,
+    ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS poor_query_percentage
+FROM Queries
+GROUP BY query_name;
