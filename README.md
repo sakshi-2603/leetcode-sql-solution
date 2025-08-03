@@ -731,3 +731,43 @@ day	active_users
 We ignore 2019-06-25 since it's not within the last 30 days.
 
 Only dates with at least one active user are returned.
+
+
+Problem:
+1070. Product Sales Analysis III
+
+The goal is to identify and return all sales that occurred in the first year each product was sold.
+
+🧾 Table Schema:
+Table: Sales
+
+sale_id (int): Unique ID of the sale (with year as part of the composite primary key).
+product_id (int): Foreign key representing the product.
+year (int): The year in which the sale occurred.
+quantity (int): Number of units sold.
+price (int): Price per unit of the product.
+Note: A product can appear multiple times per year or across years.
+
+✅ Approach:
+Find the first year each product_id appears in the Sales table using:
+
+sql
+SELECT product_id, MIN(year) AS first_year
+Join this result back to the original Sales table on both product_id and year to retrieve:
+
+All sales that happened in that first year for each product.
+
+Return the result with columns:
+product_id, first_year, quantity, price
+
+🧪 Sample Input:
+sale_id	product_id	year	quantity	price
+1	       100	      2008	  10	    5000
+2	       100	      2009	  12	    5000
+7	       200	      2011	  15	    9000
+
+✅ Sample Output:
+product_id	first_year	quantity	price
+100	         2008	        10	    5000
+200	         2011	        15	    9000
+
