@@ -642,3 +642,44 @@ JOIN (
 ) b
 ON a.player_id = b.player_id 
 AND a.event_date = DATE_ADD(b.first_login, INTERVAL 1 DAY);
+
+
+Problem:
+2356. Number of Unique Subjects Taught by Each Teacher
+
+The goal is to determine how many distinct subjects each teacher teaches, regardless of the department. Each row in the Teacher table represents a subject taught by a teacher in a department. A subject taught in multiple departments should only be counted once per teacher.
+
+Table Schema:
+Table: Teacher
+
+teacher_id (int): ID of the teacher.
+
+subject_id (int): ID of the subject taught.
+
+dept_id (int): ID of the department where the subject is taught.
+
+Primary Key: (subject_id, dept_id)
+
+Approach:
+Use COUNT(DISTINCT subject_id) to count unique subjects taught by each teacher.
+
+Group the result by teacher_id to get per-teacher counts.
+
+Sample Input:
+teacher_id	subject_id	dept_id
+1           	2         	3
+1	            2	          4
+1           	3         	3
+2	            1         	1
+2           	2	          1
+2           	3	          1
+2           	4	          1
+
+Sample Output:
+teacher_id	cnt
+1	           2
+2	           4
+
+Teacher 1 teaches subject 2 in two departments (counted once) and subject 3 → total = 2.
+Teacher 2 teaches subjects 1, 2, 3, 4 → total = 4.
+
