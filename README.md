@@ -586,3 +586,59 @@ WHERE (customer_id, order_date) IN (
     FROM Delivery
     GROUP BY customer_id
 );
+
+
+550. Game Play Analysis IV
+This problem tracks player login behavior to calculate how many players logged in **on the day after** their first login.
+Table: Activity
+
+| Column Name  | Type    |
+|--------------|---------|
+| player_id    | int     |
+| device_id    | int     |
+| event_date   | date    |
+| games_played | int     |
+
+- `(player_id, event_date)` is the **primary key**.
+- Each row indicates a login and gameplay record on a specific date with a device.
+
+Problem Statement
+
+Write an SQL query to **report the fraction** of players that logged in **again** on the **next day** after their **first login**, rounded to 2 decimal places.
+Example
+
+Input
+
+| player_id | device_id | event_date | games_played |
+|-----------|-----------|------------|--------------|
+| 1         | 2         | 2016-03-01 | 5            |
+| 1         | 2         | 2016-03-02 | 6            |
+| 2         | 3         | 2017-06-25 | 1            |
+| 3         | 1         | 2016-03-02 | 0            |
+| 3         | 4         | 2018-07-03 | 5            |
+
+Output
+
+| fraction |
+|----------|
+| 0.33     |
+
+Explanation
+
+- Player 1 logged in again on 2016-03-02, which is the next day after their first login (2016-03-01).
+- Players 2 and 3 did not log in the day after their first login.
+- So only 1 out of 3 players qualifies ⇒ `1/3 = 0.33`.
+
+SQL Solution
+
+```sql
+SELECT 
+    ROUND(COUNT(DISTINCT a.player_id) / COUNT(DISTINCT b.player_id), 2) AS fraction
+FROM Activity a
+JOIN (
+    SELECT player_id, MIN(event_date) AS first_login
+    FROM Activity
+    GROUP BY player_id
+) b
+ON a.player_id = b.player_id 
+AND a.event_date = DATE_ADD(b.first_login, INTERVAL 1 DAY);
