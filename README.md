@@ -478,3 +478,54 @@ SELECT
     ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS poor_query_percentage
 FROM Queries
 GROUP BY query_name;
+
+
+SQL: Monthly Transactions I
+
+This solution calculates monthly statistics on transactions per country, including:
+- The total number of transactions
+- The total amount of all transactions
+- The number of approved transactions
+- The total amount of approved transactions
+
+Table: Transactions
+
+| Column Name | Type    |
+|-------------|---------|
+| id          | int     |
+| country     | varchar |
+| state       | enum ["approved", "declined"] |
+| amount      | int     |
+| trans_date  | date    |
+
+Example
+
+Input:
+
+| id  | country | state    | amount | trans_date |
+|-----|---------|----------|--------|------------|
+| 121 | US      | approved | 1000   | 2018-12-18 |
+| 122 | US      | declined | 2000   | 2018-12-19 |
+| 123 | US      | approved | 2000   | 2019-01-01 |
+| 124 | DE      | approved | 2000   | 2019-01-07 |
+
+Expected Output:
+
+| month   | country | trans_count | approved_count | trans_total_amount | approved_total_amount |
+|---------|---------|-------------|----------------|--------------------|-----------------------|
+| 2018-12 | US      | 2           | 1              | 3000               | 1000                  |
+| 2019-01 | US      | 1           | 1              | 2000               | 2000                  |
+| 2019-01 | DE      | 1           | 1              | 2000               | 2000                  |
+
+SQL Query
+
+```sql
+SELECT 
+    DATE_FORMAT(trans_date, '%Y-%m') AS month,
+    country,
+    COUNT(*) AS trans_count,
+    SUM(state = 'approved') AS approved_count,
+    SUM(amount) AS trans_total_amount,
+    SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END) AS approved_total_amount
+FROM Transactions
+GROUP BY month, country;
