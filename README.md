@@ -683,3 +683,51 @@ teacher_id	cnt
 Teacher 1 teaches subject 2 in two departments (counted once) and subject 3 → total = 2.
 Teacher 2 teaches subjects 1, 2, 3, 4 → total = 4.
 
+
+1141. User Activity for the Past 30 Days I
+
+You are given a table Activity that logs user actions on a social media platform. Each row represents a specific action by a user on a specific day within a session. Your task is to calculate the number of unique users active per day, only for the last 30 days ending on 2019-07-27 (inclusive).
+
+A user is considered active on a day if they performed any activity on that day.
+
+Table Schema:
+Table: Activity
+
+user_id (int): ID of the user.
+
+session_id (int): ID of the session (belongs to one user).
+
+activity_date (date): Date of the activity.
+
+activity_type (enum): One of ('open_session', 'end_session', 'scroll_down', 'send_message').
+
+Duplicates may exist in the table.
+
+Approach:
+Filter only the rows where activity_date is within the last 30 days ending on 2019-07-27, i.e., between '2019-06-28' and '2019-07-27'.
+
+Group the rows by activity_date.
+
+Count the number of distinct user_ids for each date — this gives the number of active users for that day.
+
+Sample Input:
+user_id	session_id	activity_date	activity_type
+1	1	2019-07-20	open_session
+1	1	2019-07-20	scroll_down
+1	1	2019-07-20	end_session
+2	4	2019-07-20	open_session
+2	4	2019-07-21	send_message
+2	4	2019-07-21	end_session
+3	2	2019-07-21	open_session
+3	2	2019-07-21	send_message
+3	2	2019-07-21	end_session
+4	3	2019-06-25	open_session
+
+Sample Output:
+day	active_users
+2019-07-20	2
+2019-07-21	2
+
+We ignore 2019-06-25 since it's not within the last 30 days.
+
+Only dates with at least one active user are returned.
