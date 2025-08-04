@@ -771,3 +771,38 @@ product_id	first_year	quantity	price
 100	         2008	        10	    5000
 200	         2011	        15	    9000
 
+
+596. Classes With at Least 5 Students
+
+You are given a table called Courses with records of students and the classes they are enrolled in. The task is to find all classes that have at least 5 students enrolled.
+
+🧾 Table Schema:
+Table: Courses
+student (varchar): Name or ID of the student.
+class (varchar): Name or ID of the class.
+The (student, class) pair is unique.
+
+✅ Approach:
+Group by class to aggregate all students per class.
+Use HAVING COUNT(student) >= 5 to filter only those classes with 5 or more students.
+Return only the class column.
+
+🧪 Sample Input:
+student	class
+A	Math
+B	English
+C	Math
+D	Biology
+E	Math
+F	Computer
+G	Math
+H	Math
+I	Math
+
+✅ Sample Output:
+class
+Math
+Explanation:
+Math has 6 students → included
+Other classes have < 5 students → excluded
+
