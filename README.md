@@ -806,3 +806,21 @@ Explanation:
 Math has 6 students → included
 Other classes have < 5 students → excluded
 
+
+Problem:
+Return a list of all users and the number of followers each user has, based on the Followers table.
+
+Table Schema:
+user_id: ID of the user being followed.
+follower_id: ID of the follower.
+Each row in the table indicates that follower_id is following user_id.
+
+Approach:
+Group the data by user_id.
+Count how many times each user_id appears (i.e., how many followers they have).
+Sort the result by user_id in ascending order as required.
+
+Output Columns:
+user_id: the user.
+followers_count: how many followers that user has.
+
