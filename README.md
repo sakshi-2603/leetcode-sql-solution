@@ -824,3 +824,16 @@ Output Columns:
 user_id: the user.
 followers_count: how many followers that user has.
 
+
+Problem:
+From the MyNumbers table, return the largest number that appears only once. If there is no such number, return null.
+
+Approach:
+Group by num to count how many times each number appears.
+Use HAVING COUNT(*) = 1 to filter for numbers that appear only once (i.e., single numbers).
+Use MAX() on the result to get the largest single number.
+If no such number exists, the query will return null.
+
+Output Column:
+num: the largest number that occurs exactly once in the table. Returns null if no such number exists.
+
