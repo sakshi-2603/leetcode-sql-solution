@@ -837,3 +837,21 @@ If no such number exists, the query will return null.
 Output Column:
 num: the largest number that occurs exactly once in the table. Returns null if no such number exists.
 
+
+Problem:
+Identify customers who have bought all products listed in the Product table.
+
+Approach:
+Group by customer_id to aggregate the products each customer has purchased.
+Use COUNT(DISTINCT product_key) to count how many unique products each customer bought.
+Compare that count to the total number of products using a subquery:
+(SELECT COUNT(*) FROM Product)
+Return only the customer_ids where both counts match.
+
+Why it works:
+If a customer has bought every unique product in the Product table, the number of distinct products they've bought must equal the total number of products available.
+Duplicates in the Customer table are ignored using COUNT(DISTINCT ...).
+
+Output Column:
+customer_id: IDs of customers who bought all the products.
+
