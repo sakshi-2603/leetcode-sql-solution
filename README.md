@@ -855,3 +855,41 @@ Duplicates in the Customer table are ignored using COUNT(DISTINCT ...).
 Output Column:
 customer_id: IDs of customers who bought all the products.
 
+
+Problem - LeetCode 1789: Primary Department for Each Employee
+Difficulty: Easy
+Link: LeetCode 1789
+
+Description:
+Each employee can belong to multiple departments and must set one as primary (denoted by primary_flag = 'Y'). If an employee belongs to only one department, the flag will be 'N', but that department is still considered their primary department by default.
+Return a list of each employee and their primary department.
+
+Example Input:
+Employee table:
+
+mathematical
++-------------+---------------+--------------+
+| employee_id | department_id | primary_flag |
++-------------+---------------+--------------+
+| 1           | 1             | N            |
+| 2           | 1             | Y            |
+| 2           | 2             | N            |
+| 3           | 3             | N            |
+| 4           | 2             | N            |
+| 4           | 3             | Y            |
+| 4           | 4             | N            |
++-------------+---------------+--------------+
+📤 Example Output:
+diff
++-------------+---------------+
+| employee_id | department_id |
++-------------+---------------+
+| 1           | 1             |
+| 2           | 1             |
+| 3           | 3             |
+| 4           | 3             |
++-------------+---------------+
+Approach:
+Case 1: For employees who have explicitly marked a department as primary (primary_flag = 'Y'), we select that department.
+Case 2: For employees who belong to only one department, we select that department even if the flag is 'N'.
+Combine both using OR condition in the query
