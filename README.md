@@ -893,3 +893,38 @@ Approach:
 Case 1: For employees who have explicitly marked a department as primary (primary_flag = 'Y'), we select that department.
 Case 2: For employees who belong to only one department, we select that department even if the flag is 'N'.
 Combine both using OR condition in the query
+
+
+Problem - LeetCode 610: Triangle Judgement
+Difficulty: Easy
+Link: LeetCode 610
+
+Description:
+Each row in the table contains three integers representing the lengths of three line segments.
+We need to determine whether these three sides can form a valid triangle.
+
+Triangle Condition:
+To form a triangle, the sum of any two sides must be greater than the third side:
+x + y > z
+x + z > y
+y + z > x
+
+Example Input:
+Triangle table:
++----+----+----+
+| x  | y  | z  |
++----+----+----+
+| 13 | 15 | 30 |
+| 10 | 20 | 15 |
++----+----+----+
+Example Output:
++----+----+----+----------+
+| x  | y  | z  | triangle |
++----+----+----+----------+
+| 13 | 15 | 30 | No       |
+| 10 | 20 | 15 | Yes      |
++----+----+----+----------+
+Approach:
+Use a CASE statement to evaluate the triangle inequality conditions.
+If all three conditions hold true, return "Yes"; otherwise, return "No".
+This approach works because the triangle inequality theorem is a necessary and sufficient condition for a triangle.
