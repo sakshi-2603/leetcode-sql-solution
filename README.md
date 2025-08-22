@@ -986,3 +986,39 @@ Key Learnings
 Self-Join checks consecutive rows by comparing id, id+1, id+2.
 Window Functions (LAG/LEAD) provide a cleaner solution.
 Always use DISTINCT to avoid duplicates.
+
+
+Problem:
+
+Given a Products table with product price changes, find the price of each product on 2019-08-16.
+If a product has no price changes before that date, its price is considered 10 by default.
+
+Schema:
+Products(product_id INT, new_price INT, change_date DATE)
+(product_id, change_date) is the primary key.
+
+Example Input:
++------------+-----------+-------------+
+| product_id | new_price | change_date |
++------------+-----------+-------------+
+| 1          | 20        | 2019-08-14  |
+| 2          | 50        | 2019-08-14  |
+| 1          | 30        | 2019-08-15  |
+| 1          | 35        | 2019-08-16  |
+| 2          | 65        | 2019-08-17  |
+| 3          | 20        | 2019-08-18  |
++------------+-----------+-------------+
+
+Example Output:
++------------+-------+
+| product_id | price |
++------------+-------+
+| 1          | 35    |
+| 2          | 50    |
+| 3          | 10    |
++------------+-------+
+
+Solution Explanation:
+Select all distinct products.
+For each product, find the latest price change on or before 2019-08-16.
+Use COALESCE to assign 10 if no change exists.
