@@ -1022,3 +1022,35 @@ Solution Explanation:
 Select all distinct products.
 For each product, find the latest price change on or before 2019-08-16.
 Use COALESCE to assign 10 if no change exists.
+
+Problem:
+We have a queue of people waiting to board a bus. Each person has a weight, and they board in the order of turn. The bus has a weight limit of 1000 kg. We need to find the name of the last person who can board without exceeding the weight limit.
+
+Schema:
+Queue(person_id INT, person_name VARCHAR, weight INT, turn INT)
+person_id and turn contain unique values from 1 to n.
+
+Example Input:
++-----------+-------------+--------+------+
+| person_id | person_name | weight | turn |
++-----------+-------------+--------+------+
+| 5         | Alice       | 250    | 1    |
+| 4         | Bob         | 175    | 5    |
+| 3         | Alex        | 350    | 2    |
+| 6         | John Cena   | 400    | 3    |
+| 1         | Winston     | 500    | 6    |
+| 2         | Marie       | 200    | 4    |
++-----------+-------------+--------+------+
+
+Example Output:
++-------------+
+| person_name |
++-------------+
+| John Cena   |
++-------------+
+
+Solution Explanation:
+Order by turn to process boarding in sequence.
+Use SUM(weight) OVER (ORDER BY turn) to track cumulative weight.
+Filter out anyone exceeding 1000 kg cumulative weight.
+Select the last valid person (highest turn before exceeding the limit).
