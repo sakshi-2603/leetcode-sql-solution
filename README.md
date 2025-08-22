@@ -1054,3 +1054,41 @@ Order by turn to process boarding in sequence.
 Use SUM(weight) OVER (ORDER BY turn) to track cumulative weight.
 Filter out anyone exceeding 1000 kg cumulative weight.
 Select the last valid person (highest turn before exceeding the limit).
+
+
+Problem:
+Given a table Accounts with monthly income for each account, we need to count how many accounts fall into each salary category:
+Low Salary: income < 20000
+Average Salary: income between 20000 and 50000 (inclusive)
+High Salary: income > 50000
+We must return all three categories, even if the count is 0.
+
+Schema:
+Accounts(account_id INT, income INT)
+account_id is the primary key.
+
+Example Input:
++------------+--------+
+| account_id | income |
++------------+--------+
+| 10         | 50001  |
+| 6          | 19999  |
+| 5          | 20000  |
+| 7          | 50000  |
+| 1          | 72417  |
++------------+--------+
+
+Example Output:
++----------------+----------------+
+| category       | accounts_count |
++----------------+----------------+
+| High Salary    | 2              |
+| Low Salary     | 1              |
+| Average Salary | 2              |
++----------------+----------------+
+
+Solution Explanation:
+CASE WHEN checks which category each account belongs to.
+SUM() counts how many accounts are in each category.
+UNION ALL ensures all three categories are returned in a single result.
+>= and <= ensure boundary values (20000, 50000) are included correctly.
