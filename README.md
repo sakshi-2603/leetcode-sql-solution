@@ -1092,3 +1092,54 @@ CASE WHEN checks which category each account belongs to.
 SUM() counts how many accounts are in each category.
 UNION ALL ensures all three categories are returned in a single result.
 >= and <= ensure boundary values (20000, 50000) are included correctly.
+
+
+LeetCode SQL – Employees With Missing Manager  
+
+Problem  
+Given the `Employees` table:  text
++-------------+----------+
+| employee_id | name     |
+| manager_id  | int      |
+| salary      | int      |
++-------------+----------+
+employee_id is the primary key.
+Some employees do not have a manager (manager_id is NULL).
+If a manager leaves, their record is deleted, but employees still retain that manager_id.
+Find employees whose salary < 30000 and whose manager has left the company.
+Return result ordered by employee_id.
+Example
++-------------+-----------+------------+--------+
+| employee_id | name      | manager_id | salary |
++-------------+-----------+------------+--------+
+| 3           | Mila      | 9          | 60301  |
+| 12          | Antonella | null       | 31000  |
+| 13          | Emery     | null       | 67084  |
+| 1           | Kalel     | 11         | 21241  |
+| 9           | Mikaela   | null       | 50937  |
+| 11          | Joziah    | 6          | 28485  |
+Output:
++-------------+
+| employee_id |
++-------------+
+| 11          |
+SQL Solution
+SELECT employee_id
+FROM Employees e
+WHERE e.salary < 30000
+  AND e.manager_id IS NOT NULL
+  AND e.manager_id NOT IN (SELECT employee_id FROM Employees)
+ORDER BY employee_id;
+Key Points
+Filter employees with salary < 30000.
+Check manager_id exists but manager record is missing.
+Use NOT IN with a subquery to find managers who have left.
+📄 solution.sql
+sql
+LeetCode: Employees With Missing Manager
+SELECT employee_id
+FROM Employees e
+WHERE e.salary < 30000
+  AND e.manager_id IS NOT NULL
+  AND e.manager_id NOT IN (SELECT employee_id FROM Employees)
+ORDER BY employee_id;
