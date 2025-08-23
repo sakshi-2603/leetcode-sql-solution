@@ -1143,3 +1143,54 @@ WHERE e.salary < 30000
   AND e.manager_id IS NOT NULL
   AND e.manager_id NOT IN (SELECT employee_id FROM Employees)
 ORDER BY employee_id;
+
+🗂️ LeetCode SQL – 626. Exchange Seats  
+
+📌 Problem  
+Table: Seat  
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| student     | varchar |
++-------------+---------+
+id is the primary key.
+IDs start from 1 and increase continuously.
+Swap seats of every two consecutive students.
+If the number of students is odd, leave the last one unchanged.
+Return results ordered by id.
+
+✅ Example
+Input:
++----+---------+
+| id | student |
++----+---------+
+| 1  | Abbot   |
+| 2  | Doris   |
+| 3  | Emerson |
+| 4  | Green   |
+| 5  | Jeames  |
+Output:
++----+---------+
+| id | student |
++----+---------+
+| 1  | Doris   |
+| 2  | Abbot   |
+| 3  | Green   |
+| 4  | Emerson |
+| 5  | Jeames  |
+
+💡 SQL Solution
+SELECT 
+    CASE
+        WHEN id % 2 = 1 AND id + 1 <= (SELECT MAX(id) FROM Seat) THEN id + 1
+        WHEN id % 2 = 0 THEN id - 1
+        ELSE id
+    END AS id,
+    student
+FROM Seat
+ORDER BY id;
+🏆 Key Learnings
+Use CASE to conditionally swap IDs.
+Odd rows swap with the next, even rows swap with the previous.
+Handle last odd ID carefully by leaving it unchanged.
