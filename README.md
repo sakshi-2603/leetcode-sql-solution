@@ -13,7 +13,7 @@ WHERE low_fats = 'Y' AND recyclable = 'Y';
 
 0584. Find Customer Referee  
 Problem Link : [LeetCode 584](https://leetcode.com/problems/find-customer-referee/)  
-Description : Return the names of customers whose `referee_id` is **not 2** or is **NULL**.  
+Description : Return the names of customers whose `referee_id` is not 2 or is NULL.  
 Solution :
 sql
 SELECT name
@@ -36,7 +36,7 @@ WHERE area >= 3000000 OR population >= 25000000;
 1581. Customer Who Visited but Did Not Make Any Transactions  
 Problem Link: [LeetCode 1581](https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/)
 Description:  
-Find the number of times each customer visited the mall **without making any transactions**.
+Find the number of times each customer visited the mall without making any transactions.
 SQL Solution:
 sql
 SELECT v.customer_id, COUNT(*) AS count_no_trans
@@ -90,7 +90,7 @@ WHERE author_id = viewer_id
 ORDER BY id;
 
 SQL: Find Warmer Days Compared to Previous Day
-This repository contains a SQL solution to find days where the temperature was higher than the previous day. This is a classic SQL question involving **self joins**.
+This repository contains a SQL solution to find days where the temperature was higher than the previous day. This is a classic SQL question involving self joins.
 Problem Statement
 Given a `Weather` table, return the IDs of the days when the temperature was higher than the previous day.
 Table: Weather
@@ -163,7 +163,6 @@ This SQL solution returns the names and bonus amounts of employees who either:
 - Do not have any bonus at all (`NULL`).
 
 Tables
-
 Employee Table
 
 | Column Name | Type    |
@@ -174,16 +173,13 @@ Employee Table
 | salary      | int     |
 
 Bonus Table
-
 | Column Name | Type |
 |-------------|------|
 | empId       | int  |
 | bonus       | int  |
 
 Example
-
 Input:
-
 Employee
 | empId | name   | supervisor | salary |
 |-------|--------|------------|--------|
@@ -207,7 +203,6 @@ Expected Output:
 | Dan   | 500   |
 
 Query Logic
-
 - We use a `LEFT JOIN` to include all employees, even if they don’t have an entry in the Bonus table.
 - The `WHERE` clause filters:
   - Employees with a bonus less than 1000.
@@ -308,13 +303,11 @@ Table Descriptions
 Odd ID Movies Not Boring
 
 [LeetCode Problem](https://leetcode.com/problems/movies-with-an-odd-numbered-id/)  
-Return all movies with an **odd-numbered ID** and a **description not equal to 'boring'**.  
-Sort the result by **rating in descending order**.
+Return all movies with an odd-numbered ID and a description not equal to 'boring'.  
+Sort the result by rating in descending order.
 
 Example:
-
 Input:
-
 Cinema table:
 +----+------------+-------------+--------+
 | id | movie | description | rating |
@@ -339,7 +332,7 @@ Output:
 Average Selling Price per Product
 
 [LeetCode Problem](https://leetcode.com/problems/average-selling-price/)  
-For each product, calculate its **average selling price**, based on units sold and price during each period.  
+For each product, calculate its average selling price, based on units sold and price during each period.  
 If a product was never sold, its average selling price is 0.00
 ### 📊 Schema:
 
@@ -374,7 +367,7 @@ Output:
 Average Employee Experience per Project
 
 [LeetCode Problem](https://leetcode.com/problems/project-employees-i/)  
-For each project, calculate the **average experience (in years)** of all employees working on it, rounded to **2 decimal places**.
+For each project, calculate the average experience (in years) of all employees working on it, rounded to 2 decimal places.
 📊 Schema:
 Project Table :
 +-------------+-------------+
@@ -408,7 +401,7 @@ Output:
 Contest Registration Percentage
 
 [LeetCode Problem](https://leetcode.com/problems/percentage-of-users-attended-a-contest/)  
-Calculate the **percentage of users registered in each contest**, rounded to 2 decimal places.
+Calculate the percentage of users registered in each contest, rounded to 2 decimal places.
 Schema:
 Users Table
 +---------+-----------+
@@ -424,7 +417,7 @@ Query Quality and Poor Query Percentage
 This query analyzes the performance of database queries by calculating two key metrics:
 
 - Quality: Average of the ratio `(rating / position)` for each `query_name`.
-- Poor Query Percentage**: The percentage of queries with `rating < 3` out of total queries for each `query_name`.
+- Poor Query Percentage: The percentage of queries with `rating < 3` out of total queries for each `query_name`.
 Table: Queries
 
 | Column Name | Type    | Description                             |
@@ -434,7 +427,7 @@ Table: Queries
 | position    | int     | Rank of the result (1 to 500)          |
 | rating      | int     | Rating of the result (1 to 5)          |
 
-A query is considered **poor** if its rating is less than 3.
+A query is considered poor if its rating is less than 3.
 ### 🧮 Formula Definitions:
 
 - Quality = `AVG(rating / position)`
@@ -481,7 +474,6 @@ GROUP BY query_name;
 
 
 SQL: Monthly Transactions I
-
 This solution calculates monthly statistics on transactions per country, including:
 - The total number of transactions
 - The total amount of all transactions
@@ -532,9 +524,7 @@ GROUP BY month, country;
 
 
 1174. Immediate Food Delivery II
-
 This SQL problem asks you to find the percentage of immediate orders among the first orders of all customers.
-
 An order is considered **immediate** if the `order_date` equals the `customer_pref_delivery_date`.
 Table: Delivery
 
@@ -599,12 +589,12 @@ Table: Activity
 | event_date   | date    |
 | games_played | int     |
 
-- `(player_id, event_date)` is the **primary key**.
+- `(player_id, event_date)` is the primary key.
 - Each row indicates a login and gameplay record on a specific date with a device.
 
 Problem Statement
 
-Write an SQL query to **report the fraction** of players that logged in **again** on the **next day** after their **first login**, rounded to 2 decimal places.
+Write an SQL query to report the fraction of players that logged in again on the next day after their first login, rounded to 2 decimal places.
 Example
 
 Input
@@ -1194,3 +1184,84 @@ ORDER BY id;
 Use CASE to conditionally swap IDs.
 Odd rows swap with the next, even rows swap with the previous.
 Handle last odd ID carefully by leaving it unchanged.
+
+
+🗂️ LeetCode SQL – 1341. Movie Rating  
+📌 Problem  
+Tables: Movies, Users, MovieRating
+Movies(movie_id, title)
+Users(user_id, name)
+MovieRating(movie_id, user_id, rating, created_at)
+Task
+Find the user who rated the most movies (tie → lexicographically smallest).
+Find the movie with the highest average rating in Feb 2020 (tie → lexicographically smallest).
+Return the results in a single column called results.
+
+✅ Example
+Input:
+Movies:
++-----------+-----------+
+| movie_id  | title     |
++-----------+-----------+
+| 1         | Avengers  |
+| 2         | Frozen 2  |
+| 3         | Joker     |
+
+Users:
++---------+---------+
+| user_id | name    |
++---------+---------+
+| 1       | Daniel  |
+| 2       | Monica  |
+| 3       | Maria   |
+| 4       | James   |
+
+MovieRating:
++----------+---------+--------+------------+
+| movie_id | user_id | rating | created_at |
++----------+---------+--------+------------+
+| 1        | 1       | 3      | 2020-01-12 |
+| 1        | 2       | 4      | 2020-02-11 |
+| 1        | 3       | 2      | 2020-02-12 |
+| 1        | 4       | 1      | 2020-01-01 |
+| 2        | 1       | 5      | 2020-02-17 |
+| 2        | 2       | 2      | 2020-02-01 |
+| 2        | 3       | 2      | 2020-03-01 |
+| 3        | 1       | 3      | 2020-02-22 |
+| 3        | 2       | 4      | 2020-02-25 |
+
+Output:
++----------+
+| results  |
++----------+
+| Daniel   |
+| Frozen 2 |
+
+💡 SQL Solution
+SELECT results
+FROM (
+    SELECT u.name AS results
+    FROM Users u
+    JOIN MovieRating mr ON u.user_id = mr.user_id
+    GROUP BY u.user_id, u.name
+    ORDER BY COUNT(*) DESC, u.name ASC
+    LIMIT 1
+) top_user
+
+UNION ALL
+
+SELECT results
+FROM (
+    SELECT m.title AS results
+    FROM Movies m
+    JOIN MovieRating mr ON m.movie_id = mr.movie_id
+    WHERE mr.created_at >= '2020-02-01' AND mr.created_at < '2020-03-01'
+    GROUP BY m.movie_id, m.title
+    ORDER BY AVG(mr.rating) DESC, m.title ASC
+    LIMIT 1
+) top_movie;
+🏆 Key Learnings
+Use GROUP BY + ORDER BY + LIMIT to find top records.
+Handle ties with lexicographical sorting.
+Use subqueries with UNION ALL to combine multiple results into one table.
+Filter dates using >= start AND < next month for precise monthly queries.
