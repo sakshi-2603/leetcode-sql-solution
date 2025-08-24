@@ -1359,3 +1359,36 @@ Output:
 +----+-----+
 | 3  | 3   |
 +----+-----+
+
+Problem :  585. Investments in 2016
+This query solves the problem of finding the total investment value in 2016 (tiv_2016) for policyholders who meet two conditions:
+Their 2015 investment (tiv_2015) matches with at least one other policyholder.
+Their location (lat, lon) is unique.
+
+Approach:
+Use a subquery to find tiv_2015 values that appear more than once.
+Use another subquery to find unique locations (lat, lon) that appear only once.
+Filter records satisfying both conditions.
+Sum their tiv_2016 and round to 2 decimal places.
+
+Complexity:
+Time Complexity: O(n) due to grouping and filtering.
+Space Complexity: O(n) for subqueries.
+
+Example:
+Input:
++-----+----------+----------+-----+-----+
+| pid | tiv_2015 | tiv_2016 | lat | lon |
++-----+----------+----------+-----+-----+
+| 1   | 10       | 5        | 10  | 10  |
+| 2   | 20       | 20       | 20  | 20  |
+| 3   | 10       | 30       | 20  | 20  |
+| 4   | 10       | 40       | 40  | 40  |
+
+Output:
++----------+
+| tiv_2016 |
++----------+
+| 45.00    |
++----------+
+Explanation: PIDs 1 & 4 satisfy both conditions (tiv_2015 shared and unique location), so sum = 5 + 40 = 45.00.
