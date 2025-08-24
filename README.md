@@ -1332,3 +1332,30 @@ First aggregate by day using SUM(amount) per visited_on.
 Self-join to include last 7 days using DATE_SUB.
 Use HAVING COUNT(*) = 7 to ensure a full 7-day window.
 Use ROUND(..., 2) to format decimals.
+
+
+Problem:
+Find the user with the most friends from the RequestAccepted table. A friendship exists if a user either sent or received a request.
+Approach:
+Select requester_id and accepter_id as id using UNION ALL to include both sent and received requests.
+Group by id to count how many friends each user has.
+Sort by friend count in descending order and return the top user.
+Output:
+Returns the id of the user with the most friends and their total num of friends.
+
+Example:
+Input:
++--------------+-------------+-------------+
+| requester_id | accepter_id | accept_date |
++--------------+-------------+-------------+
+| 1            | 2           | 2016/06/03  |
+| 1            | 3           | 2016/06/08  |
+| 2            | 3           | 2016/06/08  |
+| 3            | 4           | 2016/06/09  |
+
+Output:
++----+-----+
+| id | num |
++----+-----+
+| 3  | 3   |
++----+-----+
