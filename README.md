@@ -1265,3 +1265,70 @@ Use GROUP BY + ORDER BY + LIMIT to find top records.
 Handle ties with lexicographical sorting.
 Use subqueries with UNION ALL to combine multiple results into one table.
 Filter dates using >= start AND < next month for precise monthly queries.
+
+
+# 🍽️ LeetCode SQL – 1321. Restaurant Growth  
+📌 Problem  
+You are the restaurant owner and want to compute 7-day moving averages of customer spending.
+Table: Customer
+customer_id (int), name (varchar), visited_on (date), amount (int)
+- `(customer_id, visited_on)` is the primary key.
+- There is at least one customer every day.
+- Output: For each day (starting from the 7th), show:
+  - `visited_on`
+  - `amount` (total spent in last 7 days)
+  - `average_amount` (rounded to 2 decimals
+
+Example
+Input:
++-------------+---------+-------------+--------+
+| customer_id | name | visited_on | amount |
++-------------+---------+-------------+--------+
+| 1 | Jhon | 2019-01-01 | 100 |
+| 2 | Daniel | 2019-01-02 | 110 |
+| 3 | Jade | 2019-01-03 | 120 |
+| 4 | Khaled | 2019-01-04 | 130 |
+| 5 | Winston | 2019-01-05 | 110 |
+| 6 | Elvis | 2019-01-06 | 140 |
+| 7 | Anna | 2019-01-07 | 150 |
+| 8 | Maria | 2019-01-08 | 80 |
+| 9 | Jaze | 2019-01-09 | 110 |
+| 1 | Jhon | 2019-01-10 | 130 |
+| 3 | Jade | 2019-01-10 | 150 |
+
+makefile
+
+Output:
++-------------+--------+----------------+
+| visited_on | amount | average_amount |
++-------------+--------+----------------+
+| 2019-01-07 | 860 | 122.86 |
+| 2019-01-08 | 840 | 120.00 |
+| 2019-01-09 | 840 | 120.00 |
+| 2019-01-10 | 1000 | 142.86 |
+
+SQL Solution (Your Query)
+```sql
+SELECT
+  d1.visited_on,
+  SUM(d2.day_amount) AS amount,
+  ROUND(SUM(d2.day_amount) / 7, 2) AS average_amount
+FROM (
+  SELECT visited_on, SUM(amount) AS day_amount
+  FROM Customer
+  GROUP BY visited_on
+) AS d1
+JOIN (
+  SELECT visited_on, SUM(amount) AS day_amount
+  FROM Customer
+  GROUP BY visited_on
+) AS d2
+  ON d2.visited_on BETWEEN DATE_SUB(d1.visited_on, INTERVAL 6 DAY) AND d1.visited_on
+GROUP BY d1.visited_on
+HAVING COUNT(*) = 7
+ORDER BY d1.visited_on;
+🏆 Key Points
+First aggregate by day using SUM(amount) per visited_on.
+Self-join to include last 7 days using DATE_SUB.
+Use HAVING COUNT(*) = 7 to ensure a full 7-day window.
+Use ROUND(..., 2) to format decimals.
