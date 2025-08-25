@@ -1443,3 +1443,16 @@ Output:
 Explanation:
 IT top 3 unique salaries: 90000, 85000, 70000.
 Sales top 2 unique salaries: 80000, 60000.
+
+
+Problem : 
+Fix Names in a Table (LeetCode 1667)
+This query formats user names so that the first letter is uppercase and the rest are lowercase.
+
+Steps:
+1. Extract the first character and convert it to uppercase using `UPPER(LEFT(name, 1))`.
+2. Extract the remaining characters and convert them to lowercase using `LOWER(SUBSTRING(name, 2))`.
+3. Combine them using `CONCAT`.
+4. Sort results by `user_id`.
+
+Works with MySQL for standardizing text formatting in tables.
