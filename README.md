@@ -1511,3 +1511,54 @@ WHERE conditions REGEXP '(^| )DIAB1';
 Complexity
 Time Complexity: O(n) (scans each conditions field)
 Space Complexity: O(1)
+
+
+Problem :
+LeetCode 196 - Delete Duplicate Emails (MySQL)
+Problem Statement
+You are given a table `Person` with the following schema:
+
+| Column Name | Type    |
+|-------------|---------|
+| id          | int     |
+| email       | varchar |
+
+- `id` is the primary key.
+- Each row contains an email (lowercase only).
+
+Task
+Delete all **duplicate emails**, keeping **only the one with the smallest `id`.
+Example Input
++----+------------------+
+| id | email |
++----+------------------+
+| 1 | john@example.com |
+| 2 | bob@example.com |
+| 3 | john@example.com |
++----+------------------+
+
+ Example Output
++----+------------------+
+| id | email |
++----+------------------+
+| 1 | john@example.com |
+| 2 | bob@example.com |
++----+------------------+
+
+ Explanation
+- `john@example.com` appears twice (`id=1` and `id=3`).
+- We keep the smallest id (1) and delete id=3.
+
+Solution (MySQL)
+We use a self-join:
+- `p1.email = p2.email` matches duplicate emails.
+- `p1.id > p2.id` ensures we delete the row with larger id.
+
+```sql
+DELETE p1
+FROM Person p1
+JOIN Person p2
+ON p1.email = p2.email AND p1.id > p2.id;
+Complexity
+Time Complexity: O(n²) worst case (self-join)
+Space Complexity: O(1)
