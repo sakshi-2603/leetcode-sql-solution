@@ -1562,3 +1562,62 @@ ON p1.email = p2.email AND p1.id > p2.id;
 Complexity
 Time Complexity: O(n²) worst case (self-join)
 Space Complexity: O(1)
+
+
+Problem :
+ 176. Second Highest Salary (MySQL)
+📄 Filename: `second_highest_salary.sql`
+```sql
+-- Approach 1: Using LIMIT with OFFSET
+SELECT (
+    SELECT DISTINCT salary
+    FROM Employee
+    ORDER BY salary DESC
+    LIMIT 1 OFFSET 1
+) AS SecondHighestSalary;
+
+-- Approach 2: Using MAX with WHERE
+SELECT MAX(salary) AS SecondHighestSalary
+FROM Employee
+WHERE salary < (SELECT MAX(salary) FROM Employee);
+📝 Problem Description
+Given a table Employee with the following schema:
++-------------+------+
+| Column Name | Type |
++-------------+------+
+| id          | int  |
+| salary      | int  |
++-------------+------+
+Write a query to find the second highest distinct salary.
+If no second highest salary exists, return NULL.
+
+💡 Explanation
+Approach 1 (LIMIT with OFFSET):
+DISTINCT removes duplicates.
+ORDER BY salary DESC sorts salaries from highest to lowest.
+LIMIT 1 OFFSET 1 skips the first (highest) salary and returns the next.
+Approach 2 (MAX with WHERE):
+Finds the maximum salary.
+Filters salaries less than max salary.
+Returns the highest remaining salary using MAX.
+If no second salary exists, returns NULL.
+
+🧪 Example
+Input
+Employee
++----+--------+
+| id | salary |
++----+--------+
+| 1  | 100    |
+| 2  | 200    |
+| 3  | 300    |
++----+--------+
+Output
++---------------------+
+| SecondHighestSalary |
++---------------------+
+| 200                 |
++---------------------+
+Complexity
+Approach 1: O(N log N) due to sorting.
+Approach 2: O(N) due to aggregation.
