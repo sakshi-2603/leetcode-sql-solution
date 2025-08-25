@@ -1454,5 +1454,60 @@ Steps:
 2. Extract the remaining characters and convert them to lowercase using `LOWER(SUBSTRING(name, 2))`.
 3. Combine them using `CONCAT`.
 4. Sort results by `user_id`.
-
 Works with MySQL for standardizing text formatting in tables.
+
+
+Problem :
+LeetCode 1527 - Patients With a Condition (MySQL)
+Problem Statement
+You are given a table `Patients` with the following schema:
+
+| Column Name   | Type    |
+|---------------|---------|
+| patient_id    | int     |
+| patient_name  | varchar |
+| conditions    | varchar |
+
+- `patient_id` is the primary key.
+- `conditions` contains 0 or more codes separated by spaces.
+- Type I Diabetes conditions always start with the `DIAB1` prefix.
+
+Task
+Write a SQL query to find patients who have Type I Diabetes, where `DIAB1` appears as a separate condition (not as a substring inside another word).
+
+Example Input
++------------+--------------+--------------+
+| patient_id | patient_name | conditions |
++------------+--------------+--------------+
+| 1 | Daniel | YFEV COUGH |
+| 2 | Alice | |
+| 3 | Bob | DIAB100 MYOP |
+| 4 | George | ACNE DIAB100 |
+| 5 | Alain | DIAB201 |
++------------+--------------+--------------+
+
+Example Output
++------------+--------------+--------------+
+| patient_id | patient_name | conditions |
++------------+--------------+--------------+
+| 3 | Bob | DIAB100 MYOP |
+| 4 | George | ACNE DIAB100 |
++------------+--------------+--------------+
+
+Explanation
+- `DIAB100` and `DIAB100` appear either **at the beginning** or **after a space**, indicating Type I Diabetes.
+- `SADIAB100` (like in some test cases) should **NOT** be matched.
+
+Solution
+We use `REGEXP '(^| )DIAB1'`:
+- `^` ensures `DIAB1` can match at the beginning of the string.
+- `' '` ensures `DIAB1` can match after a space.
+- This avoids matching `SADIAB100`.
+
+sql
+SELECT patient_id, patient_name, conditions
+FROM Patients
+WHERE conditions REGEXP '(^| )DIAB1';
+Complexity
+Time Complexity: O(n) (scans each conditions field)
+Space Complexity: O(1)
