@@ -1703,3 +1703,35 @@ JOIN to combine Products and Orders
 WHERE with date range filter (BETWEEN '2020-02-01' AND '2020-02-29')
 SUM() to calculate total units ordered
 HAVING to filter aggregated results
+
+Problem :1517_find_users_with_valid_emails.sql
+Query Explanation
+REGEXP: Used to filter rows where the mail column matches a specific pattern.
+^[A-Za-z]: Ensures the email starts with a letter.
+[A-Za-z0-9._-]*: Allows letters, digits, dots, underscores, and dashes after the first letter.
+@leetcode\\.com: Ensures the domain is @leetcode.com.
+$: Ensures the email ends with .com and has no extra characters.
+
+Example Input
+Users Table
+user_id	name	mail
+1	Winston	        winston@leetcode.com
+2	Jonathan	      jonathanisgreat
+3	Annabelle	      bella-@leetcode.com
+4	Sally	          sally.come@leetcode.com
+5	Marwan	        quarz#2020@leetcode.com
+6	David	          david69@gmail.com
+7	Shapiro	        .shapo@leetcode.com
+
+Expected Output
+user_id	name	        mail
+1	Winston	         winston@leetcode.com
+3	Annabelle	       bella-@leetcode.com
+4	Sally	           sally.come@leetcode.com
+
+README Section
+This query selects all users with valid emails on a website where:
+Email starts with a letter.
+Prefix may include letters, numbers, underscore, dash, or period.
+Email domain must be @leetcode.com.
+Use this solution to practice SQL pattern matching with REGEXP.
