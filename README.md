@@ -1655,3 +1655,51 @@ Key SQL Features Used:
 COUNT(DISTINCT) → To count unique products.
 GROUP_CONCAT(DISTINCT ... ORDER BY ... SEPARATOR ',') → To combine product names in sorted order.
 GROUP BY and ORDER BY to organize results.
+
+Problem: 1327. List the Products Ordered in a Period (MySQL)
+Find all products that had at least 100 units ordered in February 2020, along with their total units ordered.
+
+Tables:
+Products(product_id, product_name, product_category)
+Orders(product_id, order_date, unit)
+
+Example Input:
+Products table:
++-------------+-----------------------+------------------+
+| product_id  | product_name          | product_category |
++-------------+-----------------------+------------------+
+| 1           | Leetcode Solutions    | Book             |
+| 2           | Jewels of Stringology | Book             |
+| 3           | HP                    | Laptop           |
+| 4           | Lenovo                | Laptop           |
+| 5           | Leetcode Kit          | T-shirt          |
++-------------+-----------------------+------------------+
+
+Orders table:
++--------------+--------------+----------+
+| product_id   | order_date   | unit     |
++--------------+--------------+----------+
+| 1            | 2020-02-05   | 60       |
+| 1            | 2020-02-10   | 70       |
+| 2            | 2020-01-18   | 30       |
+| 2            | 2020-02-11   | 80       |
+| 3            | 2020-02-17   | 2        |
+| 3            | 2020-02-24   | 3        |
+| 4            | 2020-03-01   | 20       |
+| 5            | 2020-02-25   | 50       |
+| 5            | 2020-02-27   | 50       |
++--------------+--------------+----------+
+
+Expected Output:
++--------------------+---------+
+| product_name       | unit    |
++--------------------+---------+
+| Leetcode Solutions | 130     |
+| Leetcode Kit       | 100     |
++--------------------+---------+
+
+Key SQL Concepts Used:
+JOIN to combine Products and Orders
+WHERE with date range filter (BETWEEN '2020-02-01' AND '2020-02-29')
+SUM() to calculate total units ordered
+HAVING to filter aggregated results
