@@ -1621,3 +1621,37 @@ Output
 Complexity
 Approach 1: O(N log N) due to sorting.
 Approach 2: O(N) due to aggregation.
+
+
+Problem: 1484. Group Sold Products By The Date (MySQL)
+Given a table Activities containing sell_date and product, find for each date:
+The number of unique products sold.
+The product names sorted lexicographically and separated by commas.
+Return the result ordered by sell_date.
+
+Example Input:
++------------+------------+
+| sell_date  | product    |
++------------+------------+
+| 2020-05-30 | Headphone  |
+| 2020-06-01 | Pencil     |
+| 2020-06-02 | Mask       |
+| 2020-05-30 | Basketball |
+| 2020-06-01 | Bible      |
+| 2020-06-02 | Mask       |
+| 2020-05-30 | T-Shirt    |
++------------+------------+
+
+Expected Output:
++------------+----------+------------------------------+
+| sell_date  | num_sold | products                     |
++------------+----------+------------------------------+
+| 2020-05-30 | 3        | Basketball,Headphone,T-Shirt |
+| 2020-06-01 | 2        | Bible,Pencil                 |
+| 2020-06-02 | 1        | Mask                         |
++------------+----------+------------------------------+
+
+Key SQL Features Used:
+COUNT(DISTINCT) → To count unique products.
+GROUP_CONCAT(DISTINCT ... ORDER BY ... SEPARATOR ',') → To combine product names in sorted order.
+GROUP BY and ORDER BY to organize results.
